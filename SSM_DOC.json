@@ -1,0 +1,13 @@
+"mainSteps": [
+    {
+      "action": "aws:runPowerShellScript",
+      "name": "Copy File from S3 to Servers",
+      "inputs": {
+        "runCommand": [
+                  "latest_zip=$(aws s3 ls s3://co-uk-prod-shared/Saran/ | grep \"1.zip\" | sort -r -k1 | head -n 1 | awk \"{print $4}\")",
+                  "aws s3 cp \"s3://co-uk-prod-shared/Saran/$latest_zip\" \"/opt/tmp/\"",
+                  "unzip -o \"/opt/tmp/$latest_zip\" -d /opt/tmp/"
+          ]
+      }
+    }
+  ]
